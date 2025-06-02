@@ -12,12 +12,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@vSafe
         with:
           node-version: '18'
-
       - name: Cache Node.js dependencies
         uses: actions/cache@v3
         with:
@@ -25,14 +23,11 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
       - name: Install linters
         run: |
           npm install -g htmlhint stylelint stylelint-config-standard
-
       - name: Lint HTML
         run: htmlhint .
-
       - name: Lint CSS
         run: |
           if ls *.css 2>/dev/null; then npx stylelint "**/*.css"; else echo "No CSS files to lint"; fi
