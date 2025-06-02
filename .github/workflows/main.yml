@@ -1,4 +1,4 @@
-name: HTML Lint
+name: Markdown Lint
 
 on:
   push:
@@ -7,11 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  lint-html:
+  lint-markdown:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
@@ -19,8 +19,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install htmlhint
-        run: npm install -g htmlhint
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
 
-      - name: Run htmlhint
-        run: htmlhint **/*.html
+      - name: Run markdownlint on all Markdown files
+        run: markdownlint "**/*.md"
